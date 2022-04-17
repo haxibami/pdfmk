@@ -35,13 +35,13 @@ By default, [deno-puppeteer](https://github.com/lucacasonato/deno-puppeteer) shi
 ### one-shot try:
 
 ```bash
-deno run -A --no-check https://github.com/haxibami/pdfmk/raw/master/cli.ts [args]
+deno run -A --no-check https://github.com/haxibami/pdfmk/raw/main/cli.ts [args]
 ```
 
 ### system install
 
 ```bash
-deno install -Af --no-check --name=pdfmk https://github.com/haxibami/pdfmk/raw/master/cli.ts
+deno install -Af --no-check --name=pdfmk https://github.com/haxibami/pdfmk/raw/main/cli.ts
 # DON'T FORGET ADDING DENO PATH INTO YOUR $PATH!
 ```
 
