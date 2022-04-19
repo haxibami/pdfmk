@@ -4,7 +4,7 @@
 
 Make PDF from markdown!
 
-Here is an [input](https://raw.githubusercontent.com/haxibami/pdfmk/master/sample/input.md) and an [output](https://raw.githubusercontent.com/haxibami/pdfmk/master/sample/output.pdf).
+Here is an [input](https://raw.githubusercontent.com/haxibami/pdfmk/main/sample/input.md) and an [output](https://raw.githubusercontent.com/haxibami/pdfmk/main/sample/output.pdf).
 
 ## Supported Features
 
@@ -52,32 +52,25 @@ deno install -Af --no-check --name=pdfmk https://github.com/haxibami/pdfmk/raw/m
 
 pdfmk v0.0.1 - Make PDF from markdown
 
-Usage:
-    pdfmk input output [options]
-    pdfmk input [options] (output defaults to <input>.pdf)
-Options:
-    -h, --help
-            Show this help.
-    -s, --style
-            CSS style file. Default style is in "https://github.com/haxibami/pdfmk/styles.ts".
-    -f, --format <format>
-            Paper format. Defaults to "a4".
-            Available values: a0, a1, a2, a3, a4, a5, letter, legal, tabloid, ledger.
-    -z, --scale <scale>
-            Scale factor. Defaults to 1. 0.1 to 2.
-    -m, --margin <margin>
-            Page margin. Defaults to 20mm.
-    -p, --prismTheme <theme>
-            Prism theme. Defaults to "default".
-            44 themes are available.
-            See "https://prismjs.com/themes" &
-            "https://github.com/PrismJS/prism-themes" for all values.
-    -d, --mermaidTheme <theme>
-            Mermaid theme. Defaults to "default".
-            Available values: base, default, forest, dark, neutral.
-    --channel <channel>
-            Chromium channel. Defaults to "chrome".
-            Available values: "chrome", "chrome-beta", "chrome-canary", "chrome-dev".
+  Usage:   pdfmk <input> [output]
+  Version: 0.0.1
+
+  Description:
+
+    Generate PDF from Markdown file
+
+  Options:
+
+    -h, --help                        - Show this help.
+    -V, --version                     - Show the version number for this program.
+    -s, --style         <stylesheet>  - Path to CSS stylesheet.
+    --tocHeading        <section>     - TOC section heading. (Default: "TOC")
+    -f, --format        <format>      - Paper format. (Default: letter)
+    -z, --zoom          <scale>       - Zoom level. (Default: 1)
+    -m, --margin        <margin>      - Margin. (Default: "20mm")
+    -p, --prismTheme    <theme>       - Prism theme. 44 themes available.
+    -d, --mermaidTheme  <theme>       - Mermaid theme. 5 themes available.
+    --channel           <channel>     - (dev) Chrome release channel.
 ```
 
 ## Available Syntax

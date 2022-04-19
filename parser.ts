@@ -1,5 +1,6 @@
 import {
   Browser,
+  path,
   rehypeAutolinkHeadings,
   rehypeDocument,
   rehypeKatex,
@@ -20,9 +21,10 @@ import {
 import remarkMermaid from "./mermaid.ts";
 import { isBaseTheme } from "./types.ts";
 import type { Config } from "./types.ts";
+import { defaultStyle } from "./styles.ts";
 
-const md2Html = async (md: string, config: Config, browser: Browser) => {
-  // cdn resolution: there are two repos providing themes
+const parse = async (md: string, config: Config, browser: Browser) => {
+  // cdn resolution: there are two repos providing prism themes
   const themeFileURL = config.prismTheme === "default"
     ? `https://cdn.skypack.dev/prismjs/themes/prism.css`
     : isBaseTheme(config.prismTheme)
@@ -36,7 +38,7 @@ const md2Html = async (md: string, config: Config, browser: Browser) => {
     .use(remarkMath)
     .use(remarkJaruby)
     .use(remarkToc, {
-      heading: "目次",
+      heading: config.tocHeading,
       tight: true,
     })
     .use(remarkMermaid, {
@@ -55,17 +57,32 @@ const md2Html = async (md: string, config: Config, browser: Browser) => {
     //  highlighter: await shiki.getHighlighter({ theme: "nord" }),
     //})
     .use(rehypeDocument, {
-      css: [
-        "https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css",
-        themeFileURL,
+      // since <link rel...> section is inserted before <style> section,
+      // we can override default styles with given css in this way.
+      link: [
+        {
+          rel: "stylesheet",
+          href: "https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css",
+          type: "text/css",
+        },
+        {
+          rel: "stylesheet",
+          href: themeFileURL,
+          type: "text/css",
+        },
       ],
+      style: config.style
+        ? await Deno.readTextFile(path.resolve(Deno.cwd(), config.style))
+        : defaultStyle,
     })
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
     .use(rehypeStringify)
     .freeze();
-  const result = await processor.process(md);
-  return result.toString();
+
+  const html = (await processor.process(md)).toString();
+
+  return html;
 };
 
-export default md2Html;
+export default parse;

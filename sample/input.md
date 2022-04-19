@@ -4,7 +4,7 @@
 
 Make PDF from markdown!
 
-## 目次
+## TOC
 
 ## Examples
 
@@ -16,7 +16,7 @@ Make PDF from markdown!
 | Like    | This     |
 | And add | Elements |
 
-Below is a raw link:
+Below is a raw URL:
 
 https://www.haxibami.net
 
@@ -31,7 +31,7 @@ https://www.haxibami.net
 | Like    | This     |
 | And add | Elements |
 
-Below is a raw link:
+Below is a raw URL:
 
 https://www.haxibami.net
 
@@ -80,17 +80,17 @@ And the output:
 
 ### TOC generation
 
-(Currently Japanese only)
+Use `--tocHeading` option to specify heading.
 
 ```md
 ...
 
-## 目次
+## TOC
 
 ...
 ```
 
-generates [this section](#目次)
+generates [this section](#toc)
 
 ### Mermaid diagrams
 
@@ -134,7 +134,13 @@ pie
 "Rats" : 15
 ```
 
-### syntax highlighting
+### syntax highlighting & code quotes
+
+pdfmk runs on...
+
+:x: `node`
+
+:o: `deno`
 
 ```c
 #include <stdio.h>
@@ -181,4 +187,4 @@ int main() {
 
 ### in-document link
 
-Since each section has its own id, you can fly back to [top](#pdfmk-sample)
+Since each section has its own id & link, you can easily fly back to [top](#pdfmk-sample)

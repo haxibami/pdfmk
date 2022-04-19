@@ -5,10 +5,13 @@ import type {
   Product,
 } from "./deps.ts";
 
+import { EnumType } from "./deps.ts";
+
 export interface Config {
   input: string;
   output: string;
   style?: string;
+  tocHeading: string;
   format: PaperFormat;
   scale: number;
   margin: string;
@@ -31,7 +34,7 @@ const PaperFormat = {
 
 export type PaperFormat = typeof PaperFormat[keyof typeof PaperFormat];
 
-export type PrismTheme = "default" | PrismThemeBase | PrismThemePlus;
+export const paperFormat = new EnumType(PaperFormat);
 
 const PrismThemeBase = {
   "coy": "coy",
@@ -86,15 +89,19 @@ const PrismThemePlus = {
 
 type PrismThemePlus = typeof PrismThemePlus[keyof typeof PrismThemePlus];
 
-export function isBaseTheme(theme: PrismTheme): theme is PrismThemeBase {
-  if (theme in PrismThemeBase) {
-    return true;
-  }
-  return false;
-}
+const PrismTheme = {
+  "default": "default",
+  ...PrismThemeBase,
+  ...PrismThemePlus,
+} as const;
+
+//export type PrismTheme = "default" | PrismThemeBase | PrismThemePlus;
+export type PrismTheme = typeof PrismTheme[keyof typeof PrismTheme];
+
+export const prismTheme = new EnumType(PrismTheme);
 
 // Mermaid theme
-const MermaidTheme = {
+export const MermaidTheme = {
   Base: "base",
   Forest: "forest",
   Dark: "dark",
@@ -103,6 +110,8 @@ const MermaidTheme = {
 } as const;
 
 export type MermaidTheme = typeof MermaidTheme[keyof typeof MermaidTheme];
+
+export const mermaidTheme = new EnumType(MermaidTheme);
 
 // puppeteer options
 const ChromeReleaseChannel = {
@@ -115,6 +124,8 @@ const ChromeReleaseChannel = {
 export type ChromeReleaseChannel =
   typeof ChromeReleaseChannel[keyof typeof ChromeReleaseChannel];
 
+export const channel = new EnumType(ChromeReleaseChannel);
+
 export type PuppeteerLaunchOptions =
   & LaunchOptions
   & ChromeArgOptions
@@ -122,3 +133,11 @@ export type PuppeteerLaunchOptions =
   & {
     product?: Product;
   };
+
+export function isBaseTheme(theme: PrismTheme): theme is PrismThemeBase {
+  return Object.values(PrismThemeBase).includes(theme as PrismThemeBase);
+}
+
+export function isPlusTheme(theme: PrismTheme): theme is PrismThemePlus {
+  return Object.values(PrismThemePlus).includes(theme as PrismThemePlus);
+}

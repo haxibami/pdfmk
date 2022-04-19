@@ -1,4 +1,4 @@
-export const style = `/* Template CSS file */
+export const defaultStyle = `/* Template CSS file */
 
 /*
  * Web Fonts
@@ -160,11 +160,11 @@ pre[class*="language-"] {
 }
 
 code[class*="language-"] {
+  padding: 0;
   white-space: break-spaces;
   font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Monaco, Consolas,
     monospace;
   font-size: 80%;
-  line-height: 1.5em;
 }
 
 /*

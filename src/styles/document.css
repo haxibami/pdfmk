@@ -3,6 +3,7 @@
 /*
  * Web Fonts
  */
+
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap");
 
 /*
@@ -159,6 +160,7 @@ pre[class*="language-"] {
 }
 
 code[class*="language-"] {
+  padding: 0;
   white-space: break-spaces;
   font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Monaco, Consolas,
     monospace;
@@ -218,6 +220,7 @@ blockquote p {
 /*
  * KaTeX Math
  */
+
 [class="math-display"] {
   color: var(--black);
 }
