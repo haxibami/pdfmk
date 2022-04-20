@@ -160,6 +160,7 @@ pre[class*="language-"] {
 }
 
 code[class*="language-"] {
+  background: transparent;
   padding: 0;
   white-space: break-spaces;
   font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Monaco, Consolas,
