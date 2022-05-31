@@ -20,6 +20,7 @@ const printPDF = async (html: string, config: Config, browser: Browser) => {
     format: config.format,
     scale: config.scale,
   });
+
   await page.close();
 };
 

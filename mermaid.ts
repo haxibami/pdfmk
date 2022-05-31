@@ -1,7 +1,6 @@
 import {
   Browser,
   Code,
-  fromParse5,
   is,
   mermaid,
   Node,
@@ -11,10 +10,11 @@ import {
   Page,
   Paragraph,
   Parent,
-  parseFragment,
   Plugin,
   puppeteer,
+  rehypeParse,
   Transformer,
+  unified,
   VFileCompatible,
   visit,
 } from "./deps.ts";
@@ -144,6 +144,13 @@ export interface RemarkMermaidOptions {
   classname?: string[];
 }
 
+function svgParse(svg: string): Node {
+  {/* @ts-ignore なぜかdenoでのみ型エラー発生、esm.sh関連？ */}
+  const processor = unified().use(rehypeParse);
+  const ast = processor.parse(svg);
+  return ast;
+}
+
 function isMermaid(node: unknown): node is Code {
   if (!is(node, { type: "code", lang: "mermaid" })) {
     return false;
@@ -210,7 +217,7 @@ const remarkMermaid: Plugin<[RemarkMermaidOptions?]> = function mermaidTrans(
               hChildren: [
                 {
                   type: "element",
-                  children: [fromParse5(parseFragment(svg))],
+                  children: [svgParse(svg)],
                   tagName: "div",
                   properties: {
                     className: settings.classname,
@@ -224,7 +231,7 @@ const remarkMermaid: Plugin<[RemarkMermaidOptions?]> = function mermaidTrans(
             type: "paragraph",
             children: [],
             data: {
-              hChildren: [fromParse5(parseFragment(svg))],
+              hChildren: [svgParse(svg)],
             },
           } as Paragraph;
         }
@@ -247,7 +254,7 @@ async function getSvg(
       // @ts-ignore: code evaluated in browser
       const div = document.createElement("div");
       div.innerHTML = mermaid.render(id, code);
-      return div.innerHTML;
+      return div.innerHTML as string;
     },
     [node.value, theme],
   );
