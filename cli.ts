@@ -115,7 +115,6 @@ const browser = await puppeteer.launch({
     "--enable-features=SharedArrayBuffer",
     "--hide-scrollbars",
     "--ignore-gpu-blocklist",
-    "--in-process-gpu",
     "--mute-audio",
     "--no-default-browser-check",
     "--no-pings",

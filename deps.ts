@@ -3,7 +3,7 @@ export {
   Command,
   EnumType,
 } from "https://deno.land/x/cliffy@v0.24.2/command/mod.ts";
-export * as path from "https://deno.land/std@0.141.0/path/mod.ts";
+export * as path from "https://deno.land/std@0.148.0/path/mod.ts";
 export { colors } from "https://deno.land/x/cliffy@v0.24.2/ansi/colors.ts";
 export { default as os } from "https://deno.land/x/dos@v0.11.0/mod.ts";
 
@@ -37,10 +37,10 @@ export type {
   Code,
   Paragraph,
 } from "https://cdn.skypack.dev/@types/mdast@3.0.10?dts";
-export { default as mermaid } from "https://esm.sh/mermaid@9.1.1";
+export { default as mermaid } from "https://esm.sh/mermaid@9.1.3";
 export { optimize } from "https://esm.sh/svgo@2.8.0";
 export type { OptimizedSvg, OptimizeOptions } from "https://esm.sh/svgo@2.8.0";
-export type { VFileCompatible } from "https://esm.sh/vfile@5.3.2";
+export type { VFileCompatible } from "https://esm.sh/vfile@5.3.4";
 export { visit } from "https://esm.sh/unist-util-visit@4.1.0";
 
 // puppeteer deps

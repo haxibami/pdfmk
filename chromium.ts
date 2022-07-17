@@ -65,6 +65,10 @@ const executablePathForChannel = (channel: ChromeReleaseChannel): string => {
       break;
   }
 
+  if (Deno.env.get("CHROME_PATH")) {
+    chromePath = Deno.env.get("CHROME_PATH");
+  }
+
   if (!chromePath) {
     throw new Error(
       `Unable to detect browser executable path for '${channel}' on ${platform}.`,
