@@ -1,8 +1,8 @@
 import type {
-  BrowserConnectOptions,
-  ChromeArgOptions,
-  LaunchOptions,
-  Product,
+  // BrowserConnectOptions,
+  // ChromeArgOptions,
+  // LaunchOptions,
+  // Product,
 } from "./deps.ts";
 
 import { EnumType } from "./deps.ts";
@@ -17,7 +17,7 @@ export interface Config {
   margin: string;
   prismTheme: PrismTheme;
   mermaidTheme: MermaidTheme;
-  chromePath: string;
+  // chromePath: string;
 }
 
 const PaperFormat = {
@@ -114,25 +114,25 @@ export type MermaidTheme = typeof MermaidTheme[keyof typeof MermaidTheme];
 export const mermaidTheme = new EnumType(MermaidTheme);
 
 // puppeteer options
-const ChromeReleaseChannel = {
-  chrome: "chrome",
-  chromeBeta: "chrome-beta",
-  canary: "chrome-canary",
-  dev: "chrome-dev",
-} as const;
-
-export type ChromeReleaseChannel =
-  typeof ChromeReleaseChannel[keyof typeof ChromeReleaseChannel];
-
-export const channel = new EnumType(ChromeReleaseChannel);
-
-export type PuppeteerLaunchOptions =
-  & LaunchOptions
-  & ChromeArgOptions
-  & BrowserConnectOptions
-  & {
-    product?: Product;
-  };
+// const ChromeReleaseChannel = {
+//   chrome: "chrome",
+//   chromeBeta: "chrome-beta",
+//   canary: "chrome-canary",
+//   dev: "chrome-dev",
+// } as const;
+//
+// export type ChromeReleaseChannel =
+//   typeof ChromeReleaseChannel[keyof typeof ChromeReleaseChannel];
+//
+// export const channel = new EnumType(ChromeReleaseChannel);
+//
+// export type PuppeteerLaunchOptions =
+//   & LaunchOptions
+//   & ChromeArgOptions
+//   & BrowserConnectOptions
+//   & {
+//     product?: Product;
+//   };
 
 export function isBaseTheme(theme: PrismTheme): theme is PrismThemeBase {
   return Object.values(PrismThemeBase).includes(theme as PrismThemeBase);

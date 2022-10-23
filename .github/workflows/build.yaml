@@ -1,0 +1,23 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - not-yet-enabled
+env:
+  deno-version: v1.x
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ env.deno-version }}
+      - name: Cache deps
+        run: deno cache deps.ts
+      - name: TypeScript check
+        run: deno check cli.ts
+      

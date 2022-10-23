@@ -1,5 +1,7 @@
 # pdfmk
 
+**NOTE: CURRENTLY UNDER BREAKING CHANGE**
+
 **P**rint **D**ocument **F**rom **M**ar**k**down / **PDF** **M**a**k**er
 
 Make PDF from markdown!

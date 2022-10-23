@@ -1,9 +1,9 @@
-import { colors, Command, path, puppeteer } from "./deps.ts";
-import parse from "./parser.ts";
+import { colors, Command, path } from "./deps.ts";
+import { md2jsx } from "./parser.ts";
 import printPDF from "./print.ts";
-import executablePathForChannel from "./chromium.ts";
+// import executablePathForChannel from "./chromium.ts";
 import type { Config } from "./types.ts";
-import { channel, mermaidTheme, paperFormat, prismTheme } from "./types.ts";
+import { mermaidTheme, paperFormat, prismTheme } from "./types.ts";
 import { commandName, VERSION } from "./version.ts";
 
 const { args, options } = await new Command()
@@ -17,7 +17,6 @@ const { args, options } = await new Command()
   .type("paperFormat", paperFormat)
   .type("prismTheme", prismTheme)
   .type("mermaidTheme", mermaidTheme)
-  .type("channel", channel)
   .option("-s, --style <stylesheet>", "Path to CSS stylesheet.")
   .option(
     "--tocHeading <section>",
@@ -87,43 +86,8 @@ const config: Config = {
   margin: options.margin,
   prismTheme: options.prismTheme,
   mermaidTheme: options.mermaidTheme,
-  chromePath: executablePathForChannel(options.channel),
 };
-
-// TODO: Add support for reading config from file
-//const fileConfig: Partial<Config> = {};
-//const config = Object.assign(DEFAULT_CONFIG, fileConfig);
 
 const md = await Deno.readTextFile(config.input);
 
-const browser = await puppeteer.launch({
-  executablePath: config.chromePath,
-  headless: true,
-  args: [
-    "--disable-extensions",
-    "--allow-running-insecure-content",
-    "--autoplay-policy=user-gesture-required",
-    "--disable-component-update",
-    "--disable-domain-reliability",
-    "--disable-features=AudioServiceOutOfProcess,IsolateOrigins,site-per-process",
-    "--disable-print-preview",
-    "--disable-setuid-sandbox",
-    "--disable-site-isolation-trials",
-    "--disable-speech-api",
-    "--disable-web-security",
-    "--disk-cache-size=33554432",
-    "--enable-features=SharedArrayBuffer",
-    "--hide-scrollbars",
-    "--ignore-gpu-blocklist",
-    "--mute-audio",
-    "--no-default-browser-check",
-    "--no-pings",
-    "--no-sandbox",
-    "--no-zygote",
-    "--use-gl=swiftshader",
-  ],
-});
-
-await printPDF(await parse(md, config, browser), config, browser);
-
-await browser.close();
+await printPDF(await md2jsx(md), config);
